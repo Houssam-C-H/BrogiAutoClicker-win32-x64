@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brogi Auto Clicker v1.0.0.2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Title Bar -->
+  <div class="titlebar" id="titlebar">
+    <div class="titlebar-left">
+      <div class="app-logo">
+        <img src="../assets/logo.png" width="18" height="18" style="border-radius: 4px;">
+      </div>
+      <span class="app-title">Brogi Auto Clicker</span>
+      <span class="app-version">v1.0.0.2</span>
+    </div>
+    <div class="titlebar-controls">
+      <button class="tb-btn" id="btn-minimize" title="Minimize">&#8722;</button>
+      <button class="tb-btn tb-btn-close" id="btn-close" title="Close">&#10005;</button>
+    </div>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="tabs">
+    <button class="tab active" data-tab="main">Main</button>
+    <button class="tab" data-tab="settings">Settings</button>
+    <button class="tab" data-tab="guide">Guide</button>
+    <button class="tab" data-tab="about">About</button>
+  </div>
+
+  <!-- ── MAIN TAB ─────────────────────────────────────────────────────────── -->
+  <div class="tab-content active" id="tab-main">
+
+    <!-- Interval -->
+    <div class="card">
+      <div class="card-label">Click Interval</div>
+      <div class="interval-row">
+        <div class="input-group">
+          <input type="number" id="inp-interval" min="10" max="60000" value="100" />
+          <span class="input-suffix">ms</span>
+        </div>
+        <div class="cps-display">
+          <span id="cps-value">10.0</span>
+          <span class="cps-label">CPS</span>
+        </div>
+      </div>
+      <input type="range" id="slider-interval" min="10" max="2000" value="100" class="slider" />
+    </div>
+
+    <!-- Click Type + Mouse Button -->
+    <div class="card-row">
+      <div class="card half">
+        <div class="card-label">Click Type</div>
+        <label class="radio-opt">
+          <input type="radio" name="clickType" value="single" checked id="r-single"/>
+          <span class="radio-box"></span> Single
+        </label>
+        <label class="radio-opt">
+          <input type="radio" name="clickType" value="double" id="r-double"/>
+          <span class="radio-box"></span> Double
+        </label>
+        <label class="radio-opt">
+          <input type="radio" name="clickType" value="triple" id="r-triple"/>
+          <span class="radio-box"></span> Triple
+        </label>
+      </div>
+      <div class="card half">
+        <div class="card-label">Mouse Button</div>
+        <label class="radio-opt">
+          <input type="radio" name="mouseBtn" value="left" checked id="r-left"/>
+          <span class="radio-box"></span> Left
+        </label>
+        <label class="radio-opt">
+          <input type="radio" name="mouseBtn" value="right" id="r-right"/>
+          <span class="radio-box"></span> Right
+        </label>
+        <label class="radio-opt">
+          <input type="radio" name="mouseBtn" value="middle" id="r-middle"/>
+          <span class="radio-box"></span> Middle
+        </label>
+      </div>
+    </div>
+
+    <!-- Click Location -->
+    <div class="card">
+      <div class="card-label">Click Location</div>
+      <label class="radio-opt">
+        <input type="radio" name="clickMode" value="cursor" checked id="r-cursor"/>
+        <span class="radio-box"></span> Follow Cursor
+      </label>
+      <label class="radio-opt">
+        <input type="radio" name="clickMode" value="fixed" id="r-fixed"/>
+        <span class="radio-box"></span> Fixed Position
+      </label>
+      <div class="fixed-coords" id="fixed-coords">
+        <div class="coord-inputs">
+          <div class="input-group">
+            <span class="input-prefix">X</span>
+            <input type="number" id="inp-x" value="960" min="0" max="9999"/>
+          </div>
+          <div class="input-group">
+            <span class="input-prefix">Y</span>
+            <input type="number" id="inp-y" value="540" min="0" max="9999"/>
+          </div>
+          <button class="btn-pick" id="btn-pick">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <circle cx="12" cy="12" r="3"/><line x1="12" y1="2" x2="12" y2="6"/>
+              <line x1="12" y1="18" x2="12" y2="22"/><line x1="2" y1="12" x2="6" y2="12"/>
+              <line x1="18" y1="12" x2="22" y2="12"/>
+            </svg>
+            Pick
+          </button>
+        </div>
+        <div class="pick-hint" id="pick-hint"></div>
+      </div>
+    </div>
+
+    <!-- Click Count -->
+    <div class="card">
+      <div class="card-label">Click Count</div>
+      <div class="count-row">
+        <label class="radio-opt">
+          <input type="radio" name="clickCount" value="unlimited" checked id="r-unlimited"/>
+          <span class="radio-box"></span> Unlimited
+        </label>
+        <label class="radio-opt">
+          <input type="radio" name="clickCount" value="repeat" id="r-repeat"/>
+          <span class="radio-box"></span> Repeat
+          <div class="input-group inline">
+            <input type="number" id="inp-count" value="100" min="1" max="999999"/>
+            <span class="input-suffix">times</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Start/Stop Button -->
+    <button class="btn-start" id="btn-start">
+      <span class="btn-icon" id="start-icon">▶</span>
+      <span id="start-label">START</span>
+      <span class="hotkey-badge" id="hotkey-badge">F6</span>
+    </button>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-dot" id="status-dot"></div>
+      <span id="status-text">Idle</span>
+      <span class="status-sep">•</span>
+      <span>Clicks: <strong id="click-count">0</strong></span>
+    </div>
+
+  </div>
+
+  <!-- ── SETTINGS TAB ──────────────────────────────────────────────────────── -->
+  <div class="tab-content" id="tab-settings">
+    <div class="settings-header">
+      <div class="settings-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/><path d="M7 16h10"/></svg>
+      </div>
+      <div>
+        <div class="settings-title">Hotkeys</div>
+        <div class="settings-sub">Hotkeys work while app is in the background</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Start / Stop</div>
+      <div class="hotkey-row">
+        <div class="hotkey-display" id="hk-startstop-display">F6</div>
+        <button class="btn-record" id="btn-record-ss" data-target="startStopKey">Change</button>
+      </div>
+      <div class="record-hint" id="hint-ss"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Pick Location</div>
+      <div class="hotkey-row">
+        <div class="hotkey-display" id="hk-pickloc-display">F7</div>
+        <button class="btn-record" id="btn-record-pl" data-target="pickLocKey">Change</button>
+      </div>
+      <div class="record-hint" id="hint-pl"></div>
+    </div>
+
+    <div class="card settings-info-card">
+      <div class="info-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      </div>
+      <p>Click <strong>Change</strong> then press any key or key combination.<br/>
+         Press <strong>Escape</strong> to cancel recording.</p>
+    </div>
+  </div>
+
+  <!-- ── GUIDE TAB ──────────────────────────────────────────────────────────── -->
+  <div class="tab-content" id="tab-guide">
+    <div class="card">
+      <div class="card-label">How to use</div>
+      <div class="guide-step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <strong>Configure:</strong> Set your interval, click type, and location mode in the <strong>Main</strong> tab.
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <strong>Start Clicking:</strong> Press <span class="kbd">F6</span> (default) or click the large <strong>START</strong> button. The app will pulse green while active.
+        </div>
+      </div>
+      <div class="guide-step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <strong>Pick Location:</strong> If using 'Fixed Position', press <span class="kbd">F7</span>. The app will minimize, giving you 3 seconds to move your mouse to the target spot.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Pro Tips</div>
+      <ul class="guide-list">
+        <li><strong>Background Mode:</strong> You can minimize the app or play games; the hotkeys will still work!</li>
+        <li><strong>Autosave:</strong> Every change you make is saved instantly. No need to re-enter settings next time.</li>
+        <li><strong>Low Latency:</strong> For maximum speed, set interval to 10ms.</li>
+      </ul>
+    </div>
+
+    <div class="card settings-info-card">
+      <div class="info-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <p>Brogi Auto Clicker is designed to be lightweight and zero-dependency. It uses Windows PowerShell for high-precision clicking.</p>
+    </div>
+  </div>
+
+  <!-- ── ABOUT TAB ─────────────────────────────────────────────────────────── -->
+  <div class="tab-content" id="tab-about">
+    <div class="about-hero">
+      <div class="about-logo">
+        <img src="../assets/logo.png" width="64" height="64" style="border-radius: 12px;">
+      </div>
+      <div class="about-name">Brogi Auto Clicker</div>
+      <div class="about-ver">Version 1.0.0.2</div>
+      <div class="about-desc">Free, open source &amp; portable auto clicker for Windows</div>
+    </div>
+
+    <div class="changelog-section">
+      <div class="changelog-title">What's New</div>
+      <div class="changelog-item">
+        <div class="cl-version">v1.0.0.2</div>
+        <ul>
+          <li>You can now change your hotkeys!</li>
+          <li>Changed the about page</li>
+          <li>Added a few minor options</li>
+        </ul>
+      </div>
+      <div class="changelog-item">
+        <div class="cl-version">v1.0.0.1</div>
+        <ul>
+          <li>Settings are saved from your last session</li>
+          <li>Added double clicking and triple clicking</li>
+          <li>Added right clicking and middle clicking</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="features-section">
+      <div class="features-title">Features</div>
+      <div class="features-grid">
+        <div class="feat-item">Follow cursor or fixed spot</div>
+        <div class="feat-item">Left, right &amp; middle click</div>
+        <div class="feat-item">Single, double &amp; triple click</div>
+        <div class="feat-item">Custom hotkeys</div>
+        <div class="feat-item">Set click limit or unlimited</div>
+        <div class="feat-item">Settings auto-saved</div>
+        <div class="feat-item">Works in background</div>
+        <div class="feat-item">Portable, no install</div>
+        <div class="feat-item">Free &amp; open source</div>
+        <div class="feat-item">No ads or malware</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

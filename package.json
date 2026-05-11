@@ -1,0 +1,26 @@
+{
+  "name": "brogi-auto-clicker",
+  "productName": "Brogi Auto Clicker",
+  "version": "1.0.2",
+  "description": "A premium Brogi Auto Clicker for Windows",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --x64"
+  },
+  "devDependencies": {
+    "electron": "^28.3.3",
+    "electron-builder": "^24.13.3",
+    "electron-packager": "^17.1.2"
+  },
+  "build": {
+    "appId": "com.brogiautoclicker.app",
+    "productName": "Brogi Auto Clicker",
+    "win": {
+      "target": "portable"
+    },
+    "directories": {
+      "output": "dist"
+    }
+  }
+}
